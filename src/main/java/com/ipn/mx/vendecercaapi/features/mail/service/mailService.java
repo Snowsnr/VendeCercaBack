@@ -1,5 +1,5 @@
 package com.ipn.mx.vendecercaapi.features.mail.service;
 
 public interface mailService {
-    public void enviarCorreoEelectronico(String to, String subject, String text);
+    void enviarCorreoEelectronico(String to, String subject, String text);
 }
