@@ -19,7 +19,6 @@ public class Archivo implements Serializable {
     private  Long idArchivo;
     private String nombreArchivo;
     private String tipoArchivo;
-    @Lob
-    @Column(length = 16000000)
+    @Column(columnDefinition = "BYTEA")
     private byte[] datosArchivo;
 }

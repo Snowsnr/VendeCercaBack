@@ -22,5 +22,9 @@ services:
         sync: false
       - key: SPRING_MAIL_PASSWORD
         sync: false
+      - key: SPRING_SERVLET_MULTIPART_MAX_FILE_SIZE
+        value: 25MB
+      - key: SPRING_SERVLET_MULTIPART_MAX_REQUEST_SIZE
+        value: 25MB
       - key: JAVA_OPTS
         value: -XX:MaxRAMPercentage=75.0
