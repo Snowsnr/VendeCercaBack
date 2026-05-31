@@ -9,16 +9,18 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
-import java.io.File;
-
 
 @Service
 public class mailServiceImpl implements mailService{
     @Autowired
     private JavaMailSender mailSender;
 
-    @Value("classpath:static/img/ipn.png")
+    @Value("classpath:static/img/Ipn.png")
     Resource resourceFile;
+
+    @Value("${spring.mail.username}")
+    private String from;
+
     @Override
     public void enviarCorreoEelectronico(String to, String subject, String text) {
         MimeMessage mensaje = mailSender.createMimeMessage();
@@ -28,10 +30,9 @@ public class mailServiceImpl implements mailService{
                     true,
                     "UTF-8");
 
-            helper.addAttachment("archivo",
-                    new File(resourceFile.getFile().toURI()));
+            helper.addAttachment("Ipn.png", resourceFile);
 
-            helper.setFrom("noreply@gmail.com",
+            helper.setFrom(from,
                     "Envio de correos via Spring");
 
             helper.setSubject(subject);
