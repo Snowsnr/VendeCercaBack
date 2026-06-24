@@ -1,6 +1,7 @@
 package com.ipn.mx.vendecercaapi.entidades;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
@@ -17,14 +18,13 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity
 @Table(name = "ProductoServicio")
-
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "proId")
 public class ProductoServicio implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "pro_id", nullable = false)
     private Long proId;
 
-    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "neg_id")
     private Negocio negId;
@@ -44,7 +44,6 @@ public class ProductoServicio implements Serializable {
     @Column(name = "pro_precio", nullable = false)
     private BigDecimal proPrecio;
 
-    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "tpr_id")
     private TipoProducto tprId;
@@ -52,7 +51,6 @@ public class ProductoServicio implements Serializable {
     @Column(name = "pro_cantidad", nullable = false)
     private int proCantidad;
 
-    @JsonIgnore
     @OneToOne(mappedBy = "proId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Imagen imagen;
 }

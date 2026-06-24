@@ -1,6 +1,7 @@
 package com.ipn.mx.vendecercaapi.entidades;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,6 +15,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity
 @Table(name = "Persona")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "perId")
 public class Persona implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,28 +34,22 @@ public class Persona implements Serializable {
     @Column(name = "per_fecha", nullable = false)
     private OffsetDateTime perFecha;
 
-    @JsonIgnore
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "usu_id")
     private Usuario usuId;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "perIdComprador")
     private Set<Chat> chatsComoComprador = new HashSet<>();
 
-    @JsonIgnore
     @OneToMany(mappedBy = "perIdVendedor")
     private Set<Chat> chatsComoVendedor = new HashSet<>();
 
-    @JsonIgnore
     @OneToMany(mappedBy="perId", cascade={CascadeType.PERSIST, CascadeType.MERGE})
     private Set<Negocio> negocios = new HashSet<>();
 
-    @JsonIgnore
     @OneToMany(mappedBy = "perId", cascade = CascadeType.ALL)
     private Set<Feedback> feedbacks = new HashSet<>();
 
-    @JsonIgnore
     @OneToOne(mappedBy = "perId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Imagen imagen;
 }

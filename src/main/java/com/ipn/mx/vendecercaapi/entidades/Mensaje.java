@@ -1,6 +1,7 @@
 package com.ipn.mx.vendecercaapi.entidades;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,6 +13,7 @@ import java.time.OffsetDateTime;
 @NoArgsConstructor
 @Entity
 @Table(name = "Mensaje")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "menId")
 public class Mensaje implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,12 +29,10 @@ public class Mensaje implements Serializable {
     @Column(name = "men_leido", nullable = false, columnDefinition = "BOOLEAN DEFAULT FALSE")
     private Boolean menLeido;
 
-    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "per_idemisor")
     private Persona perIdEmisor;
 
-    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cha_id")
     private Chat chaId;

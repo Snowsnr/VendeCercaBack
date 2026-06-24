@@ -1,6 +1,7 @@
 package com.ipn.mx.vendecercaapi.entidades;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
@@ -16,7 +17,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity
 @Table(name = "Negocio")
-
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "negId")
 public class Negocio implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,16 +42,13 @@ public class Negocio implements Serializable{
     @Column(name = "neg_abierto", nullable = false)
     private Boolean negAbierto;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "negId", cascade = CascadeType.ALL)
     private Set<Imagen> imagenes = new HashSet<>();
 
-    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "per_id")
     private Persona perId;
 
-    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "dir_id")
     private Direccion dirId;
@@ -60,11 +58,9 @@ public class Negocio implements Serializable{
             orphanRemoval = true)
     private Set<ProductoServicio> productoServicios = new HashSet<>();
 
-    @JsonIgnore
     @OneToMany(mappedBy = "negId", cascade = CascadeType.ALL)
     private Set<Feedback> feedbacks = new HashSet<>();
 
-    @JsonIgnore
     @OneToMany(mappedBy = "negId", cascade = CascadeType.ALL)
     private Set<Chat> chats = new HashSet<>();
 

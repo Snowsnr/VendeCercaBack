@@ -1,6 +1,7 @@
 package com.ipn.mx.vendecercaapi.entidades;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,7 +18,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity
 @Table(name = "Direccion")
-
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "dirId")
 public class Direccion implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,7 +49,6 @@ public class Direccion implements Serializable {
     @Column(name = "dir_ultimaubicacion", nullable = true)
     private OffsetDateTime dirUltimaUbicacion;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "dirId", cascade = CascadeType.ALL)
     private Set<Negocio> negocios = new HashSet<>();
 
