@@ -1,7 +1,6 @@
 package com.ipn.mx.vendecercaapi.entidades;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,7 +14,6 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity
 @Table(name = "Persona")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "perId")
 public class Persona implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,15 +37,19 @@ public class Persona implements Serializable {
     private Usuario usuId;
 
     @OneToMany(mappedBy = "perIdComprador")
+    @JsonIgnoreProperties({"perIdComprador"})
     private Set<Chat> chatsComoComprador = new HashSet<>();
 
     @OneToMany(mappedBy = "perIdVendedor")
+    @JsonIgnoreProperties({"perIdVendedor"})
     private Set<Chat> chatsComoVendedor = new HashSet<>();
 
     @OneToMany(mappedBy="perId", cascade={CascadeType.PERSIST, CascadeType.MERGE})
+    @JsonIgnoreProperties({"perId"})
     private Set<Negocio> negocios = new HashSet<>();
 
     @OneToMany(mappedBy = "perId", cascade = CascadeType.ALL)
+    @JsonIgnoreProperties({"perId"})
     private Set<Feedback> feedbacks = new HashSet<>();
 
     @OneToOne(mappedBy = "perId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
