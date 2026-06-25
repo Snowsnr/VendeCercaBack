@@ -1,7 +1,6 @@
 package com.ipn.mx.vendecercaapi.entidades;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Data;
@@ -14,7 +13,6 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Entity
 @Table(name = "Imagen")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "imgId")
 public class Imagen implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

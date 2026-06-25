@@ -1,7 +1,6 @@
 package com.ipn.mx.vendecercaapi.entidades;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
@@ -18,7 +17,6 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity
 @Table(name = "ProductoServicio")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "proId")
 public class ProductoServicio implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
