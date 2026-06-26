@@ -27,10 +27,12 @@ public class Usuario implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "tip_id")
+    @JsonIgnoreProperties({"usuarios", "hibernateLazyInitializer", "handler"})
     private TipoUsuario tipId;
 
     @OneToOne(mappedBy="usuId",
             cascade = {CascadeType.PERSIST, CascadeType.MERGE},
             orphanRemoval = true)
+    @JsonIgnoreProperties({"usuId", "chatsComoComprador", "chatsComoVendedor", "negocios", "feedbacks", "imagen", "hibernateLazyInitializer", "handler"})
     private Persona persona;
 }

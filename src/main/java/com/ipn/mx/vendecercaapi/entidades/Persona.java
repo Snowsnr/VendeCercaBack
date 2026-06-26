@@ -34,6 +34,7 @@ public class Persona implements Serializable {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "usu_id")
+    @JsonIgnoreProperties({"persona", "tipId", "hibernateLazyInitializer", "handler"})
     private Usuario usuId;
 
     @OneToMany(mappedBy = "perIdComprador")
@@ -53,5 +54,6 @@ public class Persona implements Serializable {
     private Set<Feedback> feedbacks = new HashSet<>();
 
     @OneToOne(mappedBy = "perId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnoreProperties({"perId", "hibernateLazyInitializer", "handler"})
     private Imagen imagen;
 }
